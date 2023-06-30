@@ -9,7 +9,7 @@ The pragma statement specifies the Solidity compiler version 0.8.18.
 
 contract MyToken {
     // public variables here
-    string public tokenName = "SachinKumar";
+    string public tokenName = "Navneet ";
     string public abbrv = "Sk";
     uint public totalSupply = 0;
     
