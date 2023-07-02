@@ -1,56 +1,66 @@
-# Metacraft-solidity-course
-The provided code is a Solidity smart contract for a token called "MyToken." Let's go through the code and explain each part:
-
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
-These lines specify the SPDX license identifier and the Solidity compiler version to be used. 
-The SPDX-License-Identifier is set to MIT, indicating that the code is licensed under the MIT license. 
-The pragma statement specifies the Solidity compiler version 0.8.18.
+
+/*
+       REQUIREMENTS
+    1. Your contract will have public variables that store the details about your coin (Token Name, Token Abbrv., Total Supply)
+    2. Your contract will have a mapping of addresses to balances (address => uint)
+    3. You will have a mint function that takes two parameters: an address and a value. 
+       The function then increases the total supply by that number and increases the balance 
+       of the “sender” address by that amount
+    4. Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. 
+       It will take an address and value just like the mint functions. It will then deduct the value from the total supply 
+       and from the balance of the “sender”.
+    5. Lastly, your burn function should have conditionals to make sure the balance of "sender" is greater than or equal 
+       to the amount that is supposed to be burned.
+*/
+
 
 contract MyToken {
+
     // public variables here
-    string public tokenName = "Navneet ";
+    string public tokenName = "Navneet";
     string public abbrv = "Sk";
     uint public totalSupply = 0;
     
-This contract defines a contract named MyToken. It contains three public variables: tokenName, abbrv, and totalSupply.
-
-tokenName is a string variable that stores the name of the token and is set to "SachinKumar".
-abbrv is a string variable that stores the abbreviation or symbol of the token and is set to "Sk".
-totalSupply is a uint (unsigned integer) variable that stores the total supply of the token and is initially set to 0.
 
     // mapping variable here
-    mapping (address => uint) public balances;
-This line declares a mapping called balances. The mapping maps addresses (of type address) to their corresponding balances (of type uint). 
-The public keyword allows the balances to be accessed from outside the contract.
+    mapping (address=> uint) public balances;
 
     // mint function
     function mint(address _address, uint _value) public {
         totalSupply += _value;
         balances[_address] += _value;  
-    }
-The mint function is used to create new tokens and assign them to a specific address. It takes two parameters:
-_address and _value. The _address parameter represents the address to which the tokens will be assigned,
-and the _value parameter represents the number of tokens to be minted.
 
-Inside the function, the totalSupply is increased by the _value, and the balance of the _address is increased by the _value. 
-This function effectively creates new tokens and assigns them to the specified address
+    }
+
 
     // burn function
-    function burn(address _address, uint _value) public {
-        if (balances[_address] >= _value) {
+    function burn( address _address,uint _value) public {
+        if( balances[_address] >= _value){
             totalSupply -= _value;
             balances[_address] -= _value;
         }
+        
     }
 
-The burn function is used to destroy or burn existing tokens.
- It takes two parameters: _address and _value. The _address parameter represents the address from which the tokens will be burned,
- and the _value parameter represents the number of tokens to be burned.
+}
 
-Inside the function, it checks if the balance of the _address is greater than or equal to the _value.
-If the condition is true, it deducts the _value from both the totalSupply and the balance of the _address.
-This function ensures that tokens can only be burned if the sender has a sufficient balance.
+The provided Solidity contract represents a basic token contract with minting and burning functionality. The contract is accompanied by a README file that describes the requirements and functionality of the contract. Let's go through the requirements mentioned in the README file:
 
-Overall, this contract allows for the creation and destruction of tokens through the mint and burn functions respectively. 
-It also keeps track of the total supply and individual balances using the balances mapping.
+Your contract will have public variables that store the details about your coin (Token Name, Token Abbrv., Total Supply):
+
+The contract includes three public variables: tokenName, abbrv, and totalSupply. These variables store the name of the token, its abbreviation, and the total supply of tokens, respectively.
+Your contract will have a mapping of addresses to balances (address => uint):
+
+The contract includes a mapping named balances that maps addresses to their token balances. Each address is associated with a uint value representing the balance of tokens held by that address.
+You will have a mint function that takes two parameters: an address and a value. The function then increases the total supply by that number and increases the balance of the "sender" address by that amount:
+
+The contract includes a mint function that takes an address parameter _address and a uint parameter _value. The function increases the totalSupply by the _value and increases the balance of the _address by the same amount. This function allows new tokens to be created and assigned to a specific address.
+Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. It will take an address and value just like the mint functions. It will then deduct the value from the total supply and from the balance of the "sender":
+
+The contract includes a burn function that takes an address parameter _address and a uint parameter _value. The function checks if the balance of the _address is greater than or equal to the _value. If so, it deducts the _value from both the totalSupply and the balance of the _address. This function allows tokens to be destroyed or removed from circulation.
+Lastly, your burn function should have conditionals to make sure the balance of the "sender" is greater than or equal to the amount that is supposed to be burned:
+
+The burn function includes a conditional statement that checks if the balance of the _address is greater than or equal to the _value before performing the burning operation. This ensures that the balance of the _address is sufficient to burn the specified amount of tokens.
+Overall, this contract provides basic functionality for minting and burning tokens, while keeping track of token balances and the total supply.
